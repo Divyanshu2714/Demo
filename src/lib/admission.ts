@@ -15,11 +15,10 @@ const admissionEnquirySchema = z.object({
     .string()
     .trim()
     .regex(/^[\d+()\s-]{7,20}$/),
-  address: z.string().trim().min(5).max(300),
 });
 
 export const submitAdmissionEnquiry = createServerFn({ method: "POST" })
-  .inputValidator((input: unknown) => admissionEnquirySchema.parse(input))
+  .validator((input: unknown) => admissionEnquirySchema.parse(input))
   .handler(async ({ data }) => {
     const apiKey = process.env["RESEND_API_KEY"];
     if (!apiKey) {
@@ -32,18 +31,17 @@ export const submitAdmissionEnquiry = createServerFn({ method: "POST" })
       response = await fetch("https://api.resend.com/emails", {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${apiKey}`,
+          Authorization: "Bearer " + apiKey,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           from: process.env["RESEND_FROM_EMAIL"] ?? "ABC School Admissions <onboarding@resend.dev>",
-          to: ["mishradivyanshu0005@gmail.com"],
+          to: [process.env["RESEND_TO_EMAIL"] ?? "mishradivyanshu0005@gmail.com"],
           subject: "New school admission enquiry",
           text: [
             `Student name: ${data.studentName}`,
             `Class applying for: ${data.classApplyingFor}`,
             `Phone number: ${data.phone}`,
-            `Address: ${data.address}`,
           ].join("\n"),
         }),
       });

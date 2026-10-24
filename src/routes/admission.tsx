@@ -11,7 +11,6 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { PageIntro, PageShell } from "@/components/school-layout";
 import { admissionClassOptions, submitAdmissionEnquiry } from "@/lib/admission";
 
@@ -44,11 +43,10 @@ function Admission() {
     const studentName = String(formData.get("studentName") ?? "").trim();
     const classApplyingFor = String(formData.get("classApplyingFor") ?? "");
     const phone = String(formData.get("phone") ?? "");
-    const address = String(formData.get("address") ?? "").trim();
 
     try {
       const result = await submitAdmissionEnquiry({
-        data: { studentName, classApplyingFor, phone, address },
+        data: { studentName, classApplyingFor, phone },
       });
       if (!result.success) {
         setErrorMessage(
@@ -105,7 +103,7 @@ function Admission() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="classApplyingFor">Class applying for</Label>
+                <Label htmlFor="classApplyingFor">Standard applying for</Label>
                 <select
                   id="classApplyingFor"
                   name="classApplyingFor"
@@ -114,7 +112,7 @@ function Admission() {
                   required
                 >
                   <option value="" disabled>
-                    Select a class
+                    Select a standard
                   </option>
                   {admissionClassOptions.map((className) => (
                     <option key={className} value={className}>
@@ -133,28 +131,11 @@ function Admission() {
                   autoComplete="tel"
                   inputMode="tel"
                   placeholder="Enter your contact number"
-                  pattern="[0-9+() -]{7,20}"
+                  pattern="(?:[0-9]|\+|\(|\)|\s|-){7,20}"
                   title="Enter a phone number using 7 to 20 digits, spaces, or + ( ) - characters."
                   maxLength={20}
                   required
                 />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="address">Address</Label>
-                <Textarea
-                  id="address"
-                  name="address"
-                  autoComplete="street-address"
-                  placeholder="Enter your home address"
-                  className="min-h-24"
-                  minLength={5}
-                  maxLength={300}
-                  required
-                />
-                <p className="text-xs text-muted-foreground">
-                  Please enter a complete address (at least 5 characters).
-                </p>
               </div>
 
               {errorMessage && (
