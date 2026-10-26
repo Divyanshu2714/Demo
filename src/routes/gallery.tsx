@@ -1,5 +1,59 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageIntro, PageShell } from "@/components/school-layout";
-import courtyard from "@/assets/school-courtyard.jpg"; import library from "@/assets/library-collaboration.jpg"; import science from "@/assets/science-presentation.jpg"; import play from "@/assets/schoolyard-play.jpg"; import cello from "@/assets/student-cello.jpg"; import robotics from "@/assets/robotics-workshop.jpg";
-export const Route=createFileRoute("/gallery")({head:()=>({meta:[{title:"Gallery — ABC School"},{name:"description",content:"See daily life, learning and community at ABC."},{property:"og:title",content:"ABC School Gallery"},{property:"og:description",content:"A glimpse of life at ABC."},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary_large_image"}]}),component:Gallery});
-function Gallery(){const photos=[[courtyard,"Morning on campus"],[library,"Learning together"],[science,"Ideas in action"],[play,"Space to grow"],[cello,"Finding a voice"],[robotics,"Building the future"]];return <PageShell><main><PageIntro eyebrow="Gallery" title="A glimpse of life at ABC." description="Lessons, rehearsals, experiments, friendships and the ordinary moments that make a school feel like home."/><section className="mx-auto grid max-w-7xl grid-cols-2 gap-3 px-4 lg:grid-cols-3 lg:px-6">{photos.map(([src,alt],i)=><figure key={alt} className={i===0?"col-span-2 lg:row-span-2":""}><img src={src} alt={alt} loading={i?"lazy":"eager"} width={i===0?1280:816} height={i===0?960:816} className={`w-full rounded-lg object-cover ${i===0?"h-full min-h-80":"aspect-square"}`}/><figcaption className="mt-2 text-xs font-semibold text-muted-foreground">{alt}</figcaption></figure>)}</section></main></PageShell>}
+import courtyard from "@/assets/school-courtyard.jpg";
+import library from "@/assets/library-collaboration.jpg";
+import science from "@/assets/science-presentation.jpg";
+import play from "@/assets/schoolyard-play.jpg";
+import cello from "@/assets/student-cello.jpg";
+import robotics from "@/assets/robotics-workshop.jpg";
+export const Route = createFileRoute("/gallery")({
+  head: () => ({
+    meta: [
+      { title: "Gallery — ABC School" },
+      { name: "description", content: "See daily life, learning and community at ABC." },
+      { property: "og:title", content: "ABC School Gallery" },
+      { property: "og:description", content: "A glimpse of life at ABC." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
+  component: Gallery,
+});
+function Gallery() {
+  const photos = [
+    [courtyard, "Morning on campus"],
+    [library, "Learning together"],
+    [science, "Ideas in action"],
+    [play, "Space to grow"],
+    [cello, "Finding a voice"],
+    [robotics, "Building the future"],
+  ];
+  return (
+    <PageShell>
+      <main>
+        <PageIntro
+          eyebrow="Gallery"
+          title="A glimpse of life at ABC."
+          description="Lessons, rehearsals, experiments, friendships and the ordinary moments that make a school feel like home."
+        />
+        <section className="mx-auto grid max-w-7xl grid-cols-2 gap-3 px-4 lg:grid-cols-3 lg:px-6">
+          {photos.map(([src, alt], i) => (
+            <figure key={alt} className={i === 0 ? "col-span-2 lg:row-span-2" : ""}>
+              <img
+                src={src}
+                alt={alt}
+                loading={i ? "lazy" : "eager"}
+                width={i === 0 ? 1280 : 816}
+                height={i === 0 ? 960 : 816}
+                className={`w-full rounded-lg object-cover ${i === 0 ? "h-full min-h-80" : "aspect-square"}`}
+              />
+              <figcaption className="mt-2 text-xs font-semibold text-muted-foreground">
+                {alt}
+              </figcaption>
+            </figure>
+          ))}
+        </section>
+      </main>
+    </PageShell>
+  );
+}

@@ -1,5 +1,53 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageIntro, PageShell } from "@/components/school-layout";
-const months=[["September",["3 · Autumn term begins","18 · Parent welcome evening","26 · House sports afternoon"]],["October",["10 · Open Day","19–30 · Half-term break"]],["November",["12 · Remembrance assembly","21 · Science & Innovation Fair"]],["December",["9 · Winter concert","16 · End of term"]],["January",["7 · Spring term begins","25 · Senior options evening"]],["February",["15–19 · Half-term break","27 · Community arts festival"]]];
-export const Route=createFileRoute("/academic-calendar")({head:()=>({meta:[{title:"Academic Calendar — ABC School"},{name:"description",content:"Term dates and key events at ABC School."},{property:"og:title",content:"Academic Calendar — ABC School"},{property:"og:description",content:"Key dates for the ABC community."},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary_large_image"}]}),component:Calendar});
-function Calendar(){return <PageShell><main><PageIntro eyebrow="2026–27" title="Academic calendar" description="Keep track of term dates, performances, family events and important milestones across the school year."/><section className="mx-auto grid max-w-7xl gap-4 px-4 sm:grid-cols-2 lg:grid-cols-3 lg:px-6">{months.map(([month,items])=><article key={month as string} className="glass rounded-lg border border-border p-6"><h2 className="font-display text-2xl text-brand-deep">{month as string}</h2><ul className="mt-5 space-y-3">{(items as string[]).map(x=><li key={x} className="border-t border-border pt-3 text-sm text-foreground/70">{x}</li>)}</ul></article>)}</section></main></PageShell>}
+const months = [
+  [
+    "September",
+    ["3 · Autumn term begins", "18 · Parent welcome evening", "26 · House sports afternoon"],
+  ],
+  ["October", ["10 · Open Day", "19–30 · Half-term break"]],
+  ["November", ["12 · Remembrance assembly", "21 · Science & Innovation Fair"]],
+  ["December", ["9 · Winter concert", "16 · End of term"]],
+  ["January", ["7 · Spring term begins", "25 · Senior options evening"]],
+  ["February", ["15–19 · Half-term break", "27 · Community arts festival"]],
+];
+export const Route = createFileRoute("/academic-calendar")({
+  head: () => ({
+    meta: [
+      { title: "Academic Calendar — ABC School" },
+      { name: "description", content: "Term dates and key events at ABC School." },
+      { property: "og:title", content: "Academic Calendar — ABC School" },
+      { property: "og:description", content: "Key dates for the ABC community." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
+  component: Calendar,
+});
+function Calendar() {
+  return (
+    <PageShell>
+      <main>
+        <PageIntro
+          eyebrow="2026–27"
+          title="Academic calendar"
+          description="Keep track of term dates, performances, family events and important milestones across the school year."
+        />
+        <section className="mx-auto grid max-w-7xl gap-4 px-4 sm:grid-cols-2 lg:grid-cols-3 lg:px-6">
+          {months.map(([month, items]) => (
+            <article key={month as string} className="glass rounded-lg border border-border p-6">
+              <h2 className="font-display text-2xl text-brand-deep">{month as string}</h2>
+              <ul className="mt-5 space-y-3">
+                {(items as string[]).map((x) => (
+                  <li key={x} className="border-t border-border pt-3 text-sm text-foreground/70">
+                    {x}
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </section>
+      </main>
+    </PageShell>
+  );
+}
